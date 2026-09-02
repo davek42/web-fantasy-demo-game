@@ -7,7 +7,7 @@ primitives; no model, texture, or audio files.
 
 ```bash
 bun install
-bun run dev      # http://localhost:5173
+bun run dev      # http://localhost:5178 (port set by DEV_PORT in .env)
 bun test         # engine tests (combat, terrain, rules, fuzz)
 bun run build
 ```
