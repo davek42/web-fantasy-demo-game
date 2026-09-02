@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fantasy Realm — Skirmish</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="hud">
+      <h1>🐉 Fantasy Realm</h1>
+      <p id="banner"></p>
+      <div id="cards"></div>
+      <p class="hint">click a green tile to move, a red piece to attack<br />drag to orbit · scroll or + − to zoom · ← → rotate · ⏎ end turn</p>
+    </div>
+    <div id="log"></div>
+    <div id="controls">
+      <div class="row">
+        <button id="end-turn" title="End turn (Enter)">End turn ⏎</button>
+        <button id="new-game" title="New game (n)">New game</button>
+      </div>
+      <div class="row">
+        <button id="zoom-out" title="Zoom out (−)">−</button>
+        <button id="zoom-fit" title="Fit board (f)">fit</button>
+        <button id="zoom-in" title="Zoom in (+)">+</button>
+        <span class="gap"></span>
+        <button id="rotate-left" title="Rotate left (←)">◀</button>
+        <button id="rotate-auto" title="Auto rotate (space)">⟳</button>
+        <button id="rotate-right" title="Rotate right (→)">▶</button>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
