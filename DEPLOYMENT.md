@@ -18,7 +18,7 @@ means no new domain, no new certificate, and no new Lightsail firewall port.
 
 | Item | Value |
 |------|-------|
-| URL | `https://www.seaworthgames.com/fantasy-realm/` |
+| URL | `https://www.seaworthgames.com/fantasy-realm/` (no-slash form 301s here) |
 | Web root on host | `/var/www/fantasy-realm/` (the contents of `dist/`) |
 | nginx wiring | `/etc/nginx/snippets/seaworth-extra-fantasy-realm.conf` |
 | Source of truth for that snippet | `deploy/nginx-fantasy-realm.conf` in this repo |
@@ -110,6 +110,9 @@ curl -s https://www.seaworthgames.com/fantasy-realm/ | grep -c "Fantasy Realm"
 # the bundle must load (200) and be served immutable
 curl -sI "https://www.seaworthgames.com$(curl -s https://www.seaworthgames.com/fantasy-realm/ | grep -o '/fantasy-realm/assets/main-[^"]*\.js')" | grep -Ei 'HTTP/|cache-control'
 
+# the slash-less URL must redirect (301) to the canonical one, not fall through
+curl -sI https://www.seaworthgames.com/fantasy-realm | grep -Ei 'HTTP/|location:'
+
 # the security headers must still be present on the subpath
 curl -sI https://www.seaworthgames.com/fantasy-realm/ | grep -Ei 'content-security-policy|strict-transport|x-frame'
 
@@ -172,6 +175,10 @@ files from disk.
 - **Assets are cached immutable.** Only hashed files under `/assets/` are;
   `index.html` is not, so a new build is picked up on the next load.
 - **Same 200-instead-of-404 trap as the other subpaths.** Monitor on content.
+- **Link with the trailing slash.** `location ^~ /fantasy-realm/` does not match
+  `/fantasy-realm`; the snippet's `location = /fantasy-realm` 301s it to the
+  slash form as a safety net, but links from the landing page should use
+  `/fantasy-realm/` directly and skip the round trip.
 - **Nothing here touches PM2, php-fpm, certificates, or the firewall.** If a
   deploy seems to need any of those, something is wrong with the plan, not
   the host.
