@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "exp-3js-fantasy-game",
+      "name": "web-fantasy-demo-game",
       "dependencies": {
         "three": "^0.185.1",
       },
